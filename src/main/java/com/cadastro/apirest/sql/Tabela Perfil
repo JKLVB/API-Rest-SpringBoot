@@ -1,0 +1,29 @@
+--DROP TABLE perfil;
+CREATE SEQUENCE cadastro.sq_perfil
+  INCREMENT 1
+  MINVALUE 0
+  MAXVALUE 2147483647
+  START 1
+  CACHE 1;
+ALTER TABLE cadastro.sq_perfil
+  OWNER TO postgres;
+GRANT ALL ON SEQUENCE cadastro.sq_perfil TO postgres;
+
+CREATE TABLE cadastro.perfil(
+	id integer NOT NULL DEFAULT nextval('cadastro.sq_perfil'::regclass),
+	nome varchar(25) NOT NULL,
+	CONSTRAINT pk_perfil PRIMARY KEY (id),
+	CONSTRAINT uk_perfil_nome UNIQUE (nome)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cadastro.perfil
+  OWNER TO postgres;
+  
+GRANT ALL ON TABLE cadastro.perfil TO postgres;
+
+INSERT INTO cadastro.perfil (nome)
+VALUES ('Desenvolvedor');
+
+SELECT * FROM cadastro.perfil;

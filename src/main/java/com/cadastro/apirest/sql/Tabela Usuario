@@ -1,0 +1,37 @@
+--DROP TABLE cadastro.usuario;
+
+CREATE SEQUENCE cadastro.sq_usuario
+  INCREMENT 1
+  MINVALUE 0
+  MAXVALUE 2147483647
+  START 1
+  CACHE 1;
+ALTER TABLE cadastro.sq_usuario
+  OWNER TO postgres;
+GRANT ALL ON SEQUENCE cadastro.sq_usuario TO postgres;
+
+CREATE TABLE cadastro.usuario
+(
+  id integer NOT NULL DEFAULT nextval('cadastro.sq_usuario'::regclass),
+  nome varchar(50) NOT NULL,
+  cpf bigint NOT NULL,
+  email varchar(50) NOT NULL,
+  telefone bigint not null,
+  nascimento date not null,
+  CONSTRAINT pk_usuario PRIMARY KEY (id),
+  CONSTRAINT uk_usuario_cpf UNIQUE (cpf),
+  CONSTRAINT uk_usuario_email UNIQUE (email),
+  CONSTRAINT uk_usuario_teleone UNIQUE (telefone)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cadastro.usuario
+  OWNER TO postgres;
+  
+GRANT ALL ON TABLE cadastro.usuario TO postgres;
+
+INSERT INTO cadastro.usuario (nome, cpf, email, telefone, nascimento)
+VALUE ('Roberto', 33333333333, 'roberto.teste@hotmail.com', 71988142763, '06-11-1987');
+
+SELECT * FROM cadastro.usuario;

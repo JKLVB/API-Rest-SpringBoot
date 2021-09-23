@@ -1,0 +1,25 @@
+--DROP TABLE cadastro.usuario_perfil;
+CREATE SEQUENCE cadastro.sq_usuario_perfil
+  INCREMENT 1
+  MINVALUE 0
+  MAXVALUE 2147483647
+  START 1
+  CACHE 1;
+ALTER TABLE cadastro.sq_usuario_perfil
+  OWNER TO postgres;
+GRANT ALL ON SEQUENCE cadastro.sq_usuario_perfil TO postgres;
+
+CREATE TABLE cadastro.usuario_perfil(
+	id_usuario integer,
+	id_perfil integer,
+CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES cadastro.usuario (id),
+CONSTRAINT fk_perfil FOREIGN KEY (id_perfil) REFERENCES cadastro.perfil (id)
+)WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cadastro.usuario_perfil
+  OWNER TO postgres;
+  
+GRANT ALL ON TABLE cadastro.usuario_perfil TO postgres;
+
+SELECT * FROM cadastro.usuario_perfil;
